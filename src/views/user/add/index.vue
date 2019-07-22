@@ -1,17 +1,19 @@
 <template>
     <div id="user-add">
-        <b-form novalidate>
-            <b-form-group label="用户名">
-                <b-form-input v-model="user.username"></b-form-input>
-            </b-form-group>
-            <b-form-group label="昵称">
-                <b-form-input v-model="user.nickname"></b-form-input>
-            </b-form-group>
-            <b-form-group label="密码">
-                <b-form-input v-model="user.password" type="password"></b-form-input>
-            </b-form-group>
-            <b-button variant="primary" type="button" @click="add">保存</b-button>
-        </b-form>
+        <el-form :model="user" class="demo-form-inline">
+            <el-form-item label="用户名">
+                <el-input v-model="user.username" placeholder="用户名"></el-input>
+            </el-form-item>
+            <el-form-item label="昵称">
+                <el-input v-model="user.nickname" placeholder="昵称"></el-input>
+            </el-form-item>
+            <el-form-item label="密码">
+                <el-input v-model="user.password" placeholder="密码" type="password"></el-input>
+            </el-form-item>
+            <el-form-item>
+                <el-button type="primary" @click="add">保存</el-button>
+            </el-form-item>
+        </el-form>
     </div>
 </template>
 

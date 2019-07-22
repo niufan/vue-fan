@@ -5,16 +5,17 @@ Vue.use(Router);
 
 import userRouter from '@/router/user'
 
+let children = [];
+children = children.concat(userRouter);
 
 let routes = [
   {
     path: '/',
     name: 'home',
-    component: () => import(/* webpackChunkName: "about" */ '@/views/Home.vue')
+    component: () => import(/* webpackChunkName: "about" */ '@/views/Home.vue'),
+    children: children
   }
 ];
-
-routes = routes.concat(userRouter);
 
 export default new Router({
   mode: 'history',

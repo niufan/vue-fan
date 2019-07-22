@@ -1,23 +1,38 @@
 <template>
     <div id="user-list">
-        <b-button-group size="sm">
-            <b-button @click="toAdd" variant="outline-primary" >新增</b-button>
-        </b-button-group>
-        <b-table id="user-table" striped hover :items="usersByPage" :fields="fields">
-            <template slot="username" slot-scope="row">
-                <router-link :to="{path: '/user/' + row.item.objectId}">{{row.item.username}}</router-link>
-            </template>
-            <template slot="registerTime" slot-scope="row">
-                {{ row.item.registerTime | datetime}}
-            </template>
-            <template slot="operations" slot-scope="row">
-                <b-button-group size="sm">
-                    <b-button @click="toEdit(row.item)" variant="outline-warning" >编辑</b-button>
-                    <b-button @click="toDelete(row.item)" variant="outline-danger">删除</b-button>
-                </b-button-group>
-            </template>
-        </b-table>
-        <b-pagination aria-controls="user-table" align="right" v-model="current" :total-rows="total" :per-page="size" v-if="total > size"></b-pagination>
+        <el-button-group>
+            <el-button @click="toAdd" type="primary" icon="el-icon-plus" circle></el-button>
+        </el-button-group>
+        <el-table :data="usersByPage" style="width: 100%">
+            <el-table-column prop="username" label="用户名" width="180" sortable>
+                <template slot-scope="scope">
+                    <router-link :to="{path: '/user/' + scope.row.objectId}">{{scope.row.username}}</router-link>
+                </template>
+            </el-table-column>
+            <el-table-column  prop="nickname" label="昵称" width="180" sortable></el-table-column>
+            <el-table-column prop="registerTime" label="注册时间" sortable>
+                <template slot-scope="scope">
+                    {{ scope.row.registerTime | datetime}}
+                </template>
+            </el-table-column>
+            <el-table-column prop="operations" label="操作">
+                <template slot-scope="scope">
+                    <el-button-group>
+                        <el-button @click="toEdit(scope.row)" type="warning" icon="el-icon-edit" circle></el-button>
+                        <el-button @click="toDelete(scope.row)" type="danger" icon="el-icon-delete" circle></el-button>
+                    </el-button-group>
+                </template>
+            </el-table-column>
+        </el-table>
+        <el-pagination
+                @size-change="handleSizeChange"
+                @current-change="handleCurrentChange"
+                :current-page="current"
+                :page-sizes="[5, 10, 25, 100]"
+                :page-size="size"
+                layout="total, sizes, prev, pager, next, jumper"
+                :total="total">
+        </el-pagination>
     </div>
 </template>
 
@@ -34,7 +49,7 @@
                 ],
                 users: [],
                 current: 1,
-                size: 10,
+                size: 5,
                 total: 0,
             };
         },
@@ -53,6 +68,14 @@
             });
         },
         methods: {
+            handleSizeChange(val) {
+                console.log(`每页 ${val} 条`);
+                this.size = val;
+            },
+            handleCurrentChange(val) {
+                console.log(`当前页: ${val}`);
+                this.current = val;
+            },
             toAdd() {
                 this.$router.push({path: '/user/add'});
             },
@@ -64,7 +87,7 @@
                     this.$axios.delete('/api/user/' + user.objectId).then((res) => {
                         console.log(res);
                         if (res.status === 200) {
-                            this.$router.push({path: '/user'});
+                            window.location.reload();
                         }
                     });
                 }

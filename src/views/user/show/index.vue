@@ -1,16 +1,16 @@
 <template>
     <div id="user-show">
-        <b-form novalidate>
-            <b-form-group label="用户名">
-                <b-form-input v-model="user.username" readonly></b-form-input>
-            </b-form-group>
-            <b-form-group label="昵称">
-                <b-form-input v-model="user.nickname" readonly></b-form-input>
-            </b-form-group>
-            <b-form-group label="密码">
-                <b-form-input v-model="user.password" readonly type="password"></b-form-input>
-            </b-form-group>
-        </b-form>
+        <el-form :model="user" class="demo-form-inline">
+            <el-form-item label="用户名">
+                <el-input v-model="user.username" placeholder="用户名" readonly></el-input>
+            </el-form-item>
+            <el-form-item label="昵称">
+                <el-input v-model="user.nickname" placeholder="昵称" readonly></el-input>
+            </el-form-item>
+            <el-form-item label="密码">
+                <el-input v-model="user.password" placeholder="密码" type="password" readonly></el-input>
+            </el-form-item>
+        </el-form>
     </div>
 </template>
 

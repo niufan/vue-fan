@@ -1,6 +1,6 @@
 <template>
   <div class="home">
-    Welcome to home.
+    <router-view></router-view>
   </div>
 </template>
 
