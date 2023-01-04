@@ -15,8 +15,8 @@
   },
   "devDependencies": {
     "@babel/polyfill": "^7.4.4",
-    "@vue/cli-plugin-babel": "^3.9.0",
-    "@vue/cli-service": "^3.9.0",
+    "@vue/cli-plugin-babel": "^5.0.8",
+    "@vue/cli-service": "^5.0.8",
     "axios": "^0.18.0",
     "mutationobserver-shim": "^0.3.3",
     "node-sass": "^4.12.0",
